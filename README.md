@@ -1,4 +1,4 @@
-# meu-jogo
+# apple-game
 
 A game written in C for the [WASM-4](https://wasm4.org) fantasy console.
 
