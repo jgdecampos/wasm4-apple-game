@@ -1,20 +1,28 @@
 #pragma once
 
+#include <stdbool.h>
 #include <stdint.h>
 
-struct point {
-    int16_t x;
-    int16_t y;
-};
+#define SNAKE_CELL_SIZE 8
+#define SNAKE_GRID_SIZE 20
+#define SNAKE_MAX_LENGTH 28
 
-struct snake {
-    struct point* body;
-    struct point direction;
-    uint16_t length;
-};
+typedef struct {
+    int8_t x;
+    int8_t y;
+} Point;
 
-void snake_init(struct snake *snake);
+typedef struct {
+    Point body[SNAKE_MAX_LENGTH];
+    Point direction;
+    uint8_t length;
+    uint8_t wanted_length;
+    uint8_t move_delay;
+    uint8_t move_timer;
+} Snake;
 
-void snake_push(struct snake *snake, struct point p);
-
-void snake_draw(struct snake *snake);
+void snake_init(Snake *snake, int8_t start_x, int8_t start_y, Point direction, uint8_t length, uint8_t move_delay);
+void snake_update(Snake *snake, int16_t target_x, int16_t target_y);
+void snake_grow(Snake *snake);
+void snake_draw(const Snake *snake);
+bool snake_hits_rect(const Snake *snake, int16_t x, int16_t y, int16_t width, int16_t height);
